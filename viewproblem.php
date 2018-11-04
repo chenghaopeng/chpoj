@@ -43,6 +43,8 @@
     $timlim=$prob["timlim"];
     $memlim=$prob["memlim"];
     $descript=$prob["descript"];
+    $input=$prob["input"];
+    $output=$prob["output"];
     $sampin=$prob["sampin"];
     $sampout=$prob["sampout"];
     $hint=$prob["hint"];
@@ -52,11 +54,15 @@
 <h1><?php if(isset($_GET["contest"])) echo "' ".$_GET["contest"]." ': "; echo $title; ?></h1>
 <p>Time:<?php echo $timlim; ?>s Memory:<?php echo $memlim; ?>MB</p>
 <h2>Description</h2>
-<p><?php echo str_replace("\r","<br>",$descript); ?></p>
+<p><?php echo str_replace("\r","<br>",$descript)?:"NONE"; ?></p>
+<h2>Input</h2>
+<p><?php echo str_replace("\r","<br>",$input)?:"NONE"; ?></p>
+<h2>Output</h2>
+<p><?php echo str_replace("\r","<br>",$output)?:"NONE"; ?></p>
 <h2>Sample Input</h2>
-<p><?php echo str_replace("\r","<br>",$sampin); ?></p>
+<p><?php echo str_replace("\r","<br>",$sampin)?:"NONE"; ?></p>
 <h2>Sample Output</h2>
-<p><?php echo str_replace("\r","<br>",$sampout); ?></p>
+<p><?php echo str_replace("\r","<br>",$sampout)?:"NONE"; ?></p>
 <h2>Hint</h2>
 <p><?php echo str_replace("\r","<br>",$hint)?:"NONE"; ?></p>
 <br>

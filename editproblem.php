@@ -11,7 +11,7 @@
     }
     $id=$_GET["id"];
     $timlim=$memlim=$allowed=$open=0;
-    $title=$descript=$sampin=$sampout=$hint="";
+    $title=$descript=$in=$out=$sampin=$sampout=$hint="";
     $result="";
     if($_SERVER["REQUEST_METHOD"]=="POST"){
         include("conn.php");
@@ -20,19 +20,21 @@
         $timlim=$_POST["timlim"];
         $memlim=$_POST["memlim"];
         $descript=$_POST["descript"];
+        $input=$_POST["input"];
+        $output=$_POST["output"];
         $sampin=$_POST["sampin"];
         $sampout=$_POST["sampout"];
         $hint=$_POST["hint"];
         $allowed=$_POST["allowed"];
         $open=$_POST["open"];
         if($id==0){
-            $res=mysqli_query($conn,"insert into problem(title,timlim,memlim,descript,sampin,sampout,hint,allowed,open) VALUES('$title',$timlim,$memlim,'$descript','$sampin','$sampout','$hint',$allowed,$open)");
+            $res=mysqli_query($conn,"insert into problem(title,timlim,memlim,descript,input,output,sampin,sampout,hint,allowed,open) VALUES('$title',$timlim,$memlim,'$descript','$input','$output','$sampin','$sampout','$hint',$allowed,$open)");
             if(!$res)$result="Insert New Error.";
             else header("Location:problem.php");
         }
         else{
-            $res=mysqli_query($conn,"update problem set title='$title',timlim=$timlim,memlim=$memlim,descript='$descript',sampin='$sampin',sampout='$sampout',hint='$hint',allowed=$allowed,open=$open where id=$id");
-            if(!$res)$result="Update Error.";
+            $res=mysqli_query($conn,$result="update problem set title='$title',timlim=$timlim,memlim=$memlim,descript='$descript',input='$input',output='$output',sampin='$sampin',sampout='$sampout',hint='$hint',allowed=$allowed,open=$open where id=$id");
+            if(!$res)$result.="Update Error.";
             else header("Location:problem.php");
         }
     }
@@ -41,7 +43,7 @@
         $id=$_GET["id"];
         if($id==0){
             $timlim=1;$memlim=128;$allowed=0;$open=1;
-            $title=$descript=$sampin=$sampout=$hint="";
+            $title=$descript=$input=$output=$sampin=$sampout=$hint="";
         }
         else{
             $que=mysqli_query($conn,"select * from problem where id=".$id);
@@ -52,6 +54,8 @@
             $timlim=$res["timlim"];$memlim=$res["memlim"];$allowed=$res["allowed"];$open=$res["open"];
             $title=$res["title"];
             $descript=$res["descript"];
+            $input=$res["input"];
+            $output=$res["output"];
             $sampin=$res["sampin"];
             $sampout=$res["sampout"];
             $hint=$res["hint"];
@@ -89,6 +93,14 @@
     <p>
         <label for="descript">Description:</label><br>
         <textarea name="descript" autocomplete="off" rows="15" cols="70"><?php echo $descript; ?></textarea>
+    </p>
+    <p>
+        <label for="input">Input:</label><br>
+        <textarea name="input" autocomplete="off" rows="15" cols="70"><?php echo $input; ?></textarea>
+    </p>
+    <p>
+        <label for="output">Output:</label><br>
+        <textarea name="output" autocomplete="off" rows="15" cols="70"><?php echo $output; ?></textarea>
     </p>
     <p>
         <label for="sampin">Sample Input:</label><br>
